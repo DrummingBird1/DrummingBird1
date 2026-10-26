@@ -1,7 +1,6 @@
 <h1 align="center">Hey, I'm DrummingBird1 👋</h1>
 
-<p align="center"><b>I build private, local-first tools: Chrome extensions, Android apps and small web apps.</b><br>
-<sub>בונה כלים פרטיים שרצים אצלך במחשב ובטלפון: תוספי Chrome, אפליקציות אנדרואיד ואפליקציות ווב.</sub></p>
+<p align="center"><b>I build private, local-first tools: Chrome extensions, Android apps and small web apps.</b></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000" alt="JavaScript">
