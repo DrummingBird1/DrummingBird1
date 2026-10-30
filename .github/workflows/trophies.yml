@@ -10,7 +10,6 @@ on:
   push:
     branches:
       - main
-      - idan-claude/fix-profile-trophies # temporary, removed before merge
     paths:
       - ".github/workflows/trophies.yml"
 
