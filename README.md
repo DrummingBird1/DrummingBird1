@@ -18,15 +18,11 @@
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=DrummingBird1&theme=dark&hide_border=true" alt="GitHub streak">
 </p>
 
-<p align="center">
-  <img height="170" src="https://github-readme-stats.vercel.app/api?username=DrummingBird1&show_icons=true&theme=dark&hide_border=true&count_private=false" alt="GitHub stats">
-  <img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=DrummingBird1&layout=compact&theme=dark&hide_border=true" alt="Top languages">
-</p>
-
 ## 🛠 What I work on
 
 | Project | What it is |
 | --- | --- |
+| [**GoW PSP Recomp**](https://github.com/DrummingBird1/gow-psp-recomp) ![stars](https://img.shields.io/github/stars/DrummingBird1/gow-psp-recomp?style=social) | Unofficial native PC ports of God of War: Chains of Olympus and Ghost of Sparta (PSP) by static recompilation. Bring your own disc. |
 | [**Tzafir (RedAlert)**](https://github.com/DrummingBird1/RedAlert) | Real-time Israeli Home Front Command alerts on an interactive map, in 14 languages. [Live demo](https://red-alert-ten.vercel.app) |
 | [**NoveLauncher**](https://github.com/DrummingBird1/NoveLauncher) | A private, on-device Android launcher with Hebrew (RTL) support, smart search and Jewish calendar. |
 | [**PhoneLab**](https://github.com/DrummingBird1/PhoneLab) | Real-time Android sensor monitor, benchmark and thermal alerts, plus a browser dashboard. |
@@ -47,10 +43,10 @@
 ## 👑 GitHub Trophies
 
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=DrummingBird1&theme=darkhub&no-frame=true&row=1&column=7" alt="GitHub trophies">
+  <img src="assets/trophies.svg" alt="GitHub trophies">
 </p>
 
-<sub>The stats cards above are drawn by public third-party services and can be slow or empty at times.</sub>
+<sub>The trophies are rendered daily by a GitHub Action in this repository. The streak card above is drawn by a public third-party service and can be slow or empty at times.</sub>
 
 ## ☕ Support my work
 

@@ -1,0 +1,83 @@
+name: Trophies
+
+# Renders the GitHub Trophies card into assets/trophies.svg once a day, so the
+# profile README does not depend on a public third-party host that can go down.
+
+on:
+  schedule:
+    - cron: "23 3 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/trophies.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trophies
+  cancel-in-progress: true
+
+jobs:
+  trophies:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+        with:
+          deno-version: v2.x
+
+      # ryo-ma/github-profile-trophy, pinned to a commit so a later change
+      # upstream cannot alter what runs here.
+      - name: Get the trophy renderer
+        env:
+          TROPHY_REF: 43736b50a82fca73c8df1c81abb40aa03519975c
+        run: |
+          git clone --quiet https://github.com/ryo-ma/github-profile-trophy.git "$RUNNER_TEMP/trophy"
+          git -C "$RUNNER_TEMP/trophy" checkout --quiet "$TROPHY_REF"
+
+      - name: Render trophies
+        env:
+          GITHUB_TOKEN1: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+          PORT: "8089"
+          OUT: ${{ github.workspace }}/assets/trophies.svg
+        run: |
+          cd "$RUNNER_TEMP/trophy"
+          deno run --allow-net --allow-env --allow-read --allow-import main.ts &
+          server=$!
+          trap 'kill $server 2>/dev/null || true' EXIT
+          mkdir -p "$(dirname "$OUT")"
+          ok=0
+          for i in $(seq 1 20); do
+            if curl -fsS --max-time 40 \
+                "http://127.0.0.1:${PORT}/?username=${OWNER}&theme=darkhub&no-frame=true&row=1&column=7" \
+                -o "$OUT.new" \
+              && grep -q "<svg" "$OUT.new" \
+              && [ "$(wc -c < "$OUT.new")" -gt 5000 ]; then
+              ok=1
+              break
+            fi
+            sleep 3
+          done
+          if [ "$ok" != 1 ]; then
+            echo "::error::Could not render the trophies; keeping the previous file"
+            exit 1
+          fi
+          mv "$OUT.new" "$OUT"
+
+      - name: Commit the refreshed card
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/trophies.svg
+          if git diff --cached --quiet; then
+            echo "No change"
+            exit 0
+          fi
+          git commit -m "chore: refresh trophies"
+          git push
